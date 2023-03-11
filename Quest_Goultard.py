@@ -26,28 +26,28 @@ quest_frequence_path = f'{root}/{save_folder_Path}/backup_quest_frequence.txt'
 
 isExist = os.path.exists(quest_bn_path)
 if not isExist:
-    create_txt =open(quest_bn_path, "w")
+    create_txt =open(quest_bn_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(quest_rbd_path)
 if not isExist:
-    create_txt =open(quest_rbd_path, "w")
+    create_txt =open(quest_rbd_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(quest_ebe_path)
 if not isExist:
-    create_txt =open(quest_ebe_path, "w")
+    create_txt =open(quest_ebe_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(quest_id_path)
 if not isExist:
-    create_txt =open(quest_id_path, "w")
+    create_txt =open(quest_id_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(quest_context_path)
 if not isExist:
-    create_txt =open(quest_context_path, "w")
+    create_txt =open(quest_context_path, "w", encoding="utf-8")
     create_txt.close()
 
 isExist = os.path.exists(quest_frequence_path)
 if not isExist:
-    create_txt =open(quest_frequence_path, "w")
+    create_txt =open(quest_frequence_path, "w", encoding="utf-8")
     create_txt.close()
 
 #Initialise date formats
@@ -104,7 +104,7 @@ async def on_ready():
     if os.stat(quest_bn_path).st_size == 0:
         quest_name_save = []
     else:
-        backup_string = open(quest_bn_path, 'r')
+        backup_string = open(quest_bn_path, 'r', encoding="utf-8")
         quest_name_save = backup_string.read()
         quest_name_save = quest_name_save.split(',')
         backup_string.close()
@@ -112,7 +112,7 @@ async def on_ready():
     if os.stat(quest_rbd_path).st_size == 0:
         quest_R_date_save = []
     else:
-        backup_string = open(quest_rbd_path, 'r')
+        backup_string = open(quest_rbd_path, 'r', encoding="utf-8")
         quest_R_date_save = backup_string.read()
         quest_R_date_save = quest_R_date_save.split(',')
         backup_string.close()
@@ -120,7 +120,7 @@ async def on_ready():
     if os.stat(quest_ebe_path).st_size == 0:
         quest_backup_E_save = []
     else:
-        backup_string = open(quest_ebe_path, 'r')
+        backup_string = open(quest_ebe_path, 'r', encoding="utf-8")
         quest_backup_E_save = backup_string.read()
         quest_backup_E_save = quest_backup_E_save.split(',')
         backup_string.close()
@@ -128,7 +128,7 @@ async def on_ready():
     if os.stat(quest_id_path).st_size == 0:
         quest_id = []
     else:
-        backup_string = open(quest_id_path, 'r')
+        backup_string = open(quest_id_path, 'r', encoding="utf-8")
         quest_id = backup_string.read()
         quest_id = quest_id.split(',')
         backup_string.close()
@@ -136,7 +136,7 @@ async def on_ready():
     if os.stat(quest_frequence_path).st_size == 0:
         quest_frequence = []
     else:
-        backup_string = open(quest_frequence_path, 'r')
+        backup_string = open(quest_frequence_path, 'r', encoding="utf-8")
         quest_frequence = backup_string.read()
         quest_frequence = quest_frequence.split(',')
         backup_string.close()
@@ -196,7 +196,7 @@ async def make_quest(ctx, quest_name:str, R_date:str, frequence:str, modifying:i
                 await ctx.send(f'Désolé, vous devez utiliser cette commande dans le salon {bot.get_channel(command_channel)}')
                 return
         else:
-            backup_string = open(quest_bn_path, 'r')
+            backup_string = open(quest_bn_path, 'r', encoding="utf-8")
             ifquest_name_save = backup_string.read()
             ifquest_name_save = ifquest_name_save.split(',')
             backup_string.close()
@@ -234,38 +234,38 @@ async def make_quest(ctx, quest_name:str, R_date:str, frequence:str, modifying:i
                 await ctx.channel.send(f'Votre quête {Title} à bien été créé dans le salon {bot.get_channel(quest_channel)}')
                 
                 #update txt files to save actual quests datas
-                openqbn = open(quest_bn_path, "w+")
+                openqbn = open(quest_bn_path, "w+", encoding="utf-8")
                 openqbn.seek(0)
                 openqbn.truncate()
                 openqbn.write(','.join(quest_name_save))
                 openqbn.close()
 
-                openqrbd = open(quest_rbd_path, "w+")
+                openqrbd = open(quest_rbd_path, "w+", encoding="utf-8")
                 openqrbd.seek(0)
                 openqrbd.truncate()
                 openqrbd.write(','.join(quest_R_date_save))
                 openqrbd.close()
 
-                openqebe = open(quest_ebe_path, "w+")
+                openqebe = open(quest_ebe_path, "w+", encoding="utf-8")
                 openqebe.seek(0)
                 openqebe.truncate()
                 openqebe.write(','.join(quest_backup_E_save))
                 openqebe.close()
 
-                openqeid = open(quest_id_path, "w+")
+                openqeid = open(quest_id_path, "w+", encoding="utf-8")
                 openqeid.seek(0)
                 openqeid.truncate()
                 openqeid.write(','.join(quest_id))
                 openqeid.close()
 
-                openqefd = open(quest_frequence_path, "w+")
+                openqefd = open(quest_frequence_path, "w+", encoding="utf-8")
                 openqefd.seek(0)
                 openqefd.truncate()
                 openqefd.write(','.join(quest_frequence))
                 openqefd.close()
 
                 if os.stat(quest_context_path).st_size == 0:
-                    openqc = open(quest_context_path, "w+")
+                    openqc = open(quest_context_path, "w+", encoding="utf-8")
                     openqc.seek(0)
                     openqc.truncate()
                     openqc.write(str(ctx))
@@ -309,22 +309,22 @@ async def modify_quest(ctx):
     modifying = 1
 
     if os.stat(quest_rbd_path).st_size != 0:
-        openqrbd = open(quest_rbd_path, "r")
+        openqrbd = open(quest_rbd_path, "r", encoding="utf-8")
         quest_rdates = openqrbd.read()
         openqrbd.close()
         quest_rdates = quest_rdates.split(',')
 
-        openqebe = open(quest_ebe_path, "r")
+        openqebe = open(quest_ebe_path, "r", encoding="utf-8")
         quest_embed_names = openqebe.read()
         openqebe.close()
         quest_embed_names = quest_embed_names.split(',')
 
-        openqeid = open(quest_id_path, "r")
+        openqeid = open(quest_id_path, "r", encoding="utf-8")
         quest_embed_id = openqeid.read()
         openqeid.close()
         quest_embed_id = quest_embed_id.split(',')
 
-        openqf = open(quest_frequence_path, "r")
+        openqf = open(quest_frequence_path, "r", encoding="utf-8")
         quest_frequence = openqf.read()
         openqf.close()
         quest_frequence = quest_frequence.split(',')
@@ -356,7 +356,7 @@ async def reboot_quest(for_length:int, for_quest_rdates:list, quest_f:list):
             i_dates.append(date)
 
     for i in range(len(i_count)):
-        openqrbd = open(quest_rbd_path, "r+")
+        openqrbd = open(quest_rbd_path, "r+", encoding="utf-8")
         quest_rdates = openqrbd.read()
         quest_rdates = quest_rdates.split(',')
         
@@ -393,29 +393,29 @@ async def questdelete(ctx, name:str):
         global quest_frequence_path
 
         if os.stat(quest_rbd_path).st_size != 0:
-            openqrbd = open(quest_rbd_path, "r")
+            openqrbd = open(quest_rbd_path, "r", encoding="utf-8")
             quest_rdates = openqrbd.read()
             openqrbd.close()
             quest_rdates = quest_rdates.split(',')
 
-            openqebe = open(quest_ebe_path, "r")
+            openqebe = open(quest_ebe_path, "r", encoding="utf-8")
             quest_embed_names = openqebe.read()
             openqebe.close()
             quest_embed_names = quest_embed_names.split(',')
 
-            openqeid = open(quest_id_path, "r")
+            openqeid = open(quest_id_path, "r", encoding="utf-8")
             quest_embed_id = openqeid.read()
             openqeid.close()
             quest_embed_id = quest_embed_id.split(',')
 
-            openqf = open(quest_frequence_path, "r")
+            openqf = open(quest_frequence_path, "r", encoding="utf-8")
             quest_frequence = openqf.read()
             openqf.close()
             quest_frequence = quest_frequence.split(',')
 
         if ctx.channel.id == command_channel:
             #search for name in embed names
-            openqebe = open(quest_ebe_path, "r+")
+            openqebe = open(quest_ebe_path, "r+", encoding="utf-8")
             quest_embed_names = openqebe.read()
             quest_embed_names = quest_embed_names.split(',')
             if name in quest_embed_names:
@@ -425,7 +425,7 @@ async def questdelete(ctx, name:str):
                 await delete_message.delete()
                 openqebe.close()
 
-                openqrbd = open(quest_rbd_path, "r+")
+                openqrbd = open(quest_rbd_path, "r+", encoding="utf-8")
                 quest_rdates = openqrbd.read()
                 quest_rdates = quest_rdates.split(',')
                 del quest_rdates[i]
@@ -434,7 +434,7 @@ async def questdelete(ctx, name:str):
                 openqrbd.write(','.join(quest_rdates))
                 openqrbd.close()
 
-                openeebn = open(quest_bn_path, "r+")
+                openeebn = open(quest_bn_path, "r+", encoding="utf-8")
                 quest_name_save = openeebn.read()
                 quest_name_save = quest_name_save.split(',')
                 del quest_name_save[i]
@@ -443,7 +443,7 @@ async def questdelete(ctx, name:str):
                 openeebn.write(','.join(quest_name_save))
                 openeebn.close()
 
-                openqebe = open(quest_ebe_path, "r+")
+                openqebe = open(quest_ebe_path, "r+", encoding="utf-8")
                 quest_embed_names = openqebe.read()
                 quest_embed_names = quest_embed_names.split(',')
                 del quest_embed_names[i]
@@ -452,14 +452,14 @@ async def questdelete(ctx, name:str):
                 openqebe.write(','.join(quest_embed_names))
                 openqebe.close()
 
-                openqeid = open(quest_id_path, "r+")
+                openqeid = open(quest_id_path, "r+", encoding="utf-8")
                 del quest_embed_id[i]
                 openqeid.seek(0)
                 openqeid.truncate()
                 openqeid.write(','.join(quest_embed_id))
                 openqeid.close()
 
-                openqf = open(quest_frequence_path, "r+")
+                openqf = open(quest_frequence_path, "r+", encoding="utf-8")
                 del quest_frequence[i]
                 openqf.seek(0)
                 openqf.truncate()
@@ -536,12 +536,12 @@ async def quest_message_update(ctx):
     print("Starting quest update")
 
     if os.stat(quest_rbd_path).st_size != 0: #remplacer par r date
-        openqrbd = open(quest_rbd_path, "r+")
+        openqrbd = open(quest_rbd_path, "r+", encoding="utf-8")
         quest_rdates = openqrbd.read()
         quest_rdates = quest_rdates.split(',')
         openqrbd.close()
 
-        openqf = open(quest_frequence_path, "r+")
+        openqf = open(quest_frequence_path, "r+", encoding="utf-8")
         quest_f = openqf.read()
         quest_f = quest_f.split(',')
         openqf.close()
