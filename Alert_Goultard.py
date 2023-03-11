@@ -22,19 +22,19 @@ alert_bi_path = f'{root}/{save_folder_Path}/backup_alert_id.txt'
 
 isExist = os.path.exists(alert_bn_path)
 if not isExist:
-    create_txt =open(alert_bn_path, "w")
+    create_txt =open(alert_bn_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(alert_bd_path)
 if not isExist:
-    create_txt =open(alert_bd_path, "w")
+    create_txt =open(alert_bd_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(alert_bc_path)
 if not isExist:
-    create_txt =open(alert_bc_path, "w")
+    create_txt =open(alert_bc_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(alert_bi_path)
 if not isExist:
-    create_txt =open(alert_bi_path, "w")
+    create_txt =open(alert_bi_path, "w", encoding="utf-8")
     create_txt.close()
 
 
@@ -55,7 +55,7 @@ async def on_ready():
     if os.stat(alert_bn_path).st_size == 0:
         alert_backup_names = []
     else:
-        backup_string = open(alert_bn_path, 'r')
+        backup_string = open(alert_bn_path, 'r', encoding="utf-8")
         alert_backup_names = backup_string.read()
         alert_backup_names = alert_backup_names.split(',')
         backup_string.close()
@@ -63,7 +63,7 @@ async def on_ready():
     if os.stat(alert_bd_path).st_size == 0:
         alert_backup_descriptions = []
     else:
-        backup_string = open(alert_bd_path, 'r')
+        backup_string = open(alert_bd_path, 'r', encoding="utf-8")
         alert_backup_descriptions = backup_string.read()
         alert_backup_descriptions = alert_backup_descriptions.split(',')
         backup_string.close()
@@ -71,7 +71,7 @@ async def on_ready():
     if os.stat(alert_bc_path).st_size == 0:
         alert_backup_channels = []
     else:
-        backup_string = open(alert_bc_path, 'r')
+        backup_string = open(alert_bc_path, 'r', encoding="utf-8")
         alert_backup_channels = backup_string.read()
         alert_backup_channels = alert_backup_channels.split(',')
         backup_string.close()
@@ -79,7 +79,7 @@ async def on_ready():
     if os.stat(alert_bi_path).st_size == 0:
         alert_backup_id = []
     else:
-        backup_string = open(alert_bi_path, 'r')
+        backup_string = open(alert_bi_path, 'r', encoding="utf-8")
         alert_backup_id = backup_string.read()
         alert_backup_id = alert_backup_id.split(',')
         backup_string.close()
@@ -90,21 +90,28 @@ async def on_message(message):
     global alert_backup_descriptions
     global alert_backup_channels
     global alert_backup_id
-    if message.channel.name in alert_backup_channels and message.author.bot == False:
-        index = alert_backup_channels.index(message.channel.name)
-        channel_index = channels_id.index(message.channel.id)
-        salon = bot.get_channel(channels_id[channel_index])
-        delete_message = await salon.fetch_message(alert_backup_id[index])
-        await delete_message.delete()
 
-        openebi = open(alert_bi_path, 'w+')
-        alert_backup_id = openebi.read()
-        alert_backup_id = alert_backup_id.split(',')
-        alert_backup_id[index] = (str((await salon.send(alert_backup_descriptions[index])).id))
-        openebi.seek(0)
-        openebi.truncate()
-        openebi.write(','.join(alert_backup_id))
-        openebi.close()
+    openebn = open(alert_bn_path, "w+", encoding="utf-8")
+    openebn.seek(0)
+    alert_list = openebn.read()
+    alert_list = alert_list.split(',')
+    openebn.close()
+    if alert_list != ['']:
+        if message.channel.name in alert_backup_channels and message.author.bot == False:
+            index = alert_backup_channels.index(message.channel.name)
+            channel_index = channels_id.index(message.channel.id)
+            salon = bot.get_channel(channels_id[channel_index])
+            delete_message = await salon.fetch_message(alert_backup_id[index])
+            await delete_message.delete()
+
+            openebi = open(alert_bi_path, 'w+', encoding="utf-8")
+            alert_backup_id = openebi.read()
+            alert_backup_id = alert_backup_id.split(',')
+            alert_backup_id[index] = (str((await salon.send(alert_backup_descriptions[index])).id))
+            openebi.seek(0)
+            openebi.truncate()
+            openebi.write(','.join(alert_backup_id))
+            openebi.close()
 
     await bot.process_commands(message)
 
@@ -132,25 +139,25 @@ async def alert(ctx, titre:str, description:str, salon:str):
             alert_backup_channels.append(str(salon))
             alert_backup_id.append(str((await salon.send(description)).id))
 
-            openebn = open(alert_bn_path, "w+")
+            openebn = open(alert_bn_path, "w+", encoding="utf-8")
             openebn.seek(0)
             openebn.truncate()
             openebn.write(','.join(alert_backup_names))
             openebn.close()
 
-            openebd = open(alert_bd_path, "w+")
+            openebd = open(alert_bd_path, "w+", encoding="utf-8")
             openebd.seek(0)
             openebd.truncate()
             openebd.write(','.join(alert_backup_descriptions))
             openebd.close()
 
-            openebc = open(alert_bc_path, "w+")
+            openebc = open(alert_bc_path, "w+", encoding="utf-8")
             openebc.seek(0)
             openebc.truncate()
             openebc.write(','.join(alert_backup_channels))
             openebc.close()
 
-            openebi = open(alert_bi_path, "w+")
+            openebi = open(alert_bi_path, "w+", encoding="utf-8")
             openebi.seek(0)
             openebi.truncate()
             openebi.write(','.join(alert_backup_id))
@@ -197,7 +204,7 @@ async def alertdelete(ctx, name:str):
             delete_message = await salon.fetch_message(alert_backup_id[index])
             await delete_message.delete()
 
-            openbn = open(alert_bn_path, "r+")
+            openbn = open(alert_bn_path, "r+", encoding="utf-8")
             alert_backup_names = openbn.read()
             alert_backup_names = alert_backup_names.split(',')
             del alert_backup_names[index]
@@ -206,7 +213,7 @@ async def alertdelete(ctx, name:str):
             openbn.write(','.join(alert_backup_names))
             openbn.close()
 
-            openbd = open(alert_bd_path, "r+")
+            openbd = open(alert_bd_path, "r+", encoding="utf-8")
             alert_backup_descriptions = openbd.read()
             alert_backup_descriptions = alert_backup_descriptions.split(',')
             del alert_backup_descriptions[index]
@@ -215,7 +222,7 @@ async def alertdelete(ctx, name:str):
             openbd.write(','.join(alert_backup_descriptions))
             openbd.close()
 
-            openbc = open(alert_bc_path, "r+")
+            openbc = open(alert_bc_path, "r+", encoding="utf-8")
             alert_backup_channels = openbc.read()
             alert_backup_channels = alert_backup_channels.split(',')
             del alert_backup_channels[index]
@@ -224,7 +231,7 @@ async def alertdelete(ctx, name:str):
             openbc.write(','.join(alert_backup_channels))
             openbc.close()
 
-            openbi = open(alert_bi_path, "r+")
+            openbi = open(alert_bi_path, "r+", encoding="utf-8")
             alert_backup_id = openbi.read()
             alert_backup_id = alert_backup_id.split(',')
             del alert_backup_id[index]

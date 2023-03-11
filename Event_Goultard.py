@@ -40,27 +40,27 @@ event_context_path = f'{root}/{save_folder_Path}/backup_event_context.txt'
 
 isExist = os.path.exists(event_bn_path)
 if not isExist:
-    create_txt =open(event_bn_path, "w")
+    create_txt =open(event_bn_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(event_sbd_path)
 if not isExist:
-    create_txt =open(event_sbd_path, "w")
+    create_txt =open(event_sbd_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(event_ebd_path)
 if not isExist:
-    create_txt =open(event_ebd_path, "w")
+    create_txt =open(event_ebd_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(event_ebe_path)
 if not isExist:
-    create_txt =open(event_ebe_path, "w")
+    create_txt =open(event_ebe_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(event_id_path)
 if not isExist:
-    create_txt =open(event_id_path, "w")
+    create_txt =open(event_id_path, "w", encoding="utf-8")
     create_txt.close()
 isExist = os.path.exists(event_context_path)
 if not isExist:
-    create_txt =open(event_context_path, "w")
+    create_txt =open(event_context_path, "w", encoding="utf-8")
     create_txt.close()
 
 #Initialise date formats
@@ -112,7 +112,7 @@ async def on_ready():
     if os.stat(event_bn_path).st_size == 0:
         event_name_save = []
     else:
-        backup_string = open(event_bn_path, 'r')
+        backup_string = open(event_bn_path, 'r', encoding="utf-8")
         event_name_save = backup_string.read()
         event_name_save = event_name_save.split(',')
         backup_string.close()
@@ -120,7 +120,7 @@ async def on_ready():
     if os.stat(event_sbd_path).st_size == 0:
         event_S_date_save = []
     else:
-        backup_string = open(event_sbd_path, 'r')
+        backup_string = open(event_sbd_path, 'r', encoding="utf-8")
         event_S_date_save = backup_string.read()
         event_S_date_save = event_S_date_save.split(',')
         backup_string.close()
@@ -128,7 +128,7 @@ async def on_ready():
     if os.stat(event_ebd_path).st_size == 0:
         event_E_date_save = []
     else:
-        backup_string = open(event_ebd_path, 'r')
+        backup_string = open(event_ebd_path, 'r', encoding="utf-8")
         event_E_date_save = backup_string.read()
         event_E_date_save = event_E_date_save.split(',')
         backup_string.close()
@@ -136,7 +136,7 @@ async def on_ready():
     if os.stat(event_ebe_path).st_size == 0:
         event_backup_E_save = []
     else:
-        backup_string = open(event_ebe_path, 'r')
+        backup_string = open(event_ebe_path, 'r', encoding="utf-8")
         event_backup_E_save = backup_string.read()
         event_backup_E_save = event_backup_E_save.split(',')
         backup_string.close()
@@ -144,7 +144,7 @@ async def on_ready():
     if os.stat(event_id_path).st_size == 0:
         event_id = []
     else:
-        backup_string = open(event_id_path, 'r')
+        backup_string = open(event_id_path, 'r', encoding="utf-8")
         event_id = backup_string.read()
         event_id = event_id.split(',')
         backup_string.close()
@@ -249,38 +249,38 @@ async def make_event(ctx, Event_name:str, S_date:str, E_date:str, modifying:int,
                 await ctx.channel.send(f'Votre évènement {Title} à bien été créé dans le salon {bot.get_channel(event_channel)}')
                 
                 #update txt files to save actual events datas
-                openebn = open(event_bn_path, "w+")
+                openebn = open(event_bn_path, "w+", encoding="utf-8")
                 openebn.seek(0)
                 openebn.truncate()
                 openebn.write(','.join(event_name_save))
                 openebn.close()
 
-                openesbd = open(event_sbd_path, "w+")
+                openesbd = open(event_sbd_path, "w+", encoding="utf-8")
                 openesbd.seek(0)
                 openesbd.truncate()
                 openesbd.write(','.join(event_S_date_save))
                 openesbd.close()
 
-                openeebd = open(event_ebd_path, "w+")
+                openeebd = open(event_ebd_path, "w+", encoding="utf-8")
                 openeebd.seek(0)
                 openeebd.truncate()
                 openeebd.write(','.join(event_E_date_save))
                 openeebd.close()
 
-                openeebe = open(event_ebe_path, "w+")
+                openeebe = open(event_ebe_path, "w+", encoding="utf-8")
                 openeebe.seek(0)
                 openeebe.truncate()
                 openeebe.write(','.join(event_backup_E_save))
                 openeebe.close()
 
-                openeeid = open(event_id_path, "w+")
+                openeeid = open(event_id_path, "w+", encoding="utf-8")
                 openeeid.seek(0)
                 openeeid.truncate()
                 openeeid.write(','.join(event_id))
                 openeeid.close()
 
                 if os.stat(event_context_path).st_size == 0:
-                    openec = open(event_context_path, "w+")
+                    openec = open(event_context_path, "w+", encoding="utf-8")
                     openec.seek(0)
                     openec.truncate()
                     openec.write(str(ctx))
@@ -324,22 +324,22 @@ async def modify_event(ctx):
     modifying = 1
 
     if os.stat(event_ebd_path).st_size != 0:
-        openesbd = open(event_sbd_path, "r")
+        openesbd = open(event_sbd_path, "r", encoding="utf-8")
         event_sdates = openesbd.read()
         openesbd.close()
         event_sdates = event_sdates.split(',')
 
-        openeebd = open(event_ebd_path, "r")
+        openeebd = open(event_ebd_path, "r", encoding="utf-8")
         event_edates = openeebd.read()
         openeebd.close()
         event_edates = event_edates.split(',')
 
-        openeebe = open(event_ebe_path, "r")
+        openeebe = open(event_ebe_path, "r", encoding="utf-8")
         event_embed_names = openeebe.read()
         openeebe.close()
         event_embed_names = event_embed_names.split(',')
 
-        openeeid = open(event_id_path, "r")
+        openeeid = open(event_id_path, "r", encoding="utf-8")
         event_embed_id = openeeid.read()
         openeeid.close()
         event_embed_id = event_embed_id.split(',')
@@ -368,7 +368,7 @@ async def delete_event(for_length:int, for_event_edates):
     event_edates = for_event_edates
 
     i_count =[]
-    openeeid = open(event_id_path, "r+")
+    openeeid = open(event_id_path, "r+", encoding="utf-8")
     event_embed_id = openeeid.read()
     event_embed_id = event_embed_id.split(',')
     openeeid.close()
@@ -385,7 +385,7 @@ async def delete_event(for_length:int, for_event_edates):
             i_count.append(i)
 
     for i in range(len(i_count)):
-        openesbd = open(event_sbd_path, "r+")
+        openesbd = open(event_sbd_path, "r+", encoding="utf-8")
         event_sdates = openesbd.read()
         event_sdates = event_sdates.split(',')
         del event_sdates[i_count[i]]
@@ -396,7 +396,7 @@ async def delete_event(for_length:int, for_event_edates):
         openesbd.write(','.join(event_sdates))
         openesbd.close()
 
-        openeebn = open(event_bn_path, "r+")
+        openeebn = open(event_bn_path, "r+", encoding="utf-8")
         event_name_save = openeebn.read()
         event_name_save = event_name_save.split(',')
         del event_name_save[i_count[i]]
@@ -407,7 +407,7 @@ async def delete_event(for_length:int, for_event_edates):
         openeebn.write(','.join(event_name_save))
         openeebn.close()
 
-        openeebe = open(event_ebe_path, "r+")
+        openeebe = open(event_ebe_path, "r+", encoding="utf-8")
         event_embed_names = openeebe.read()
         event_embed_names = event_embed_names.split(',')
         del event_embed_names[i_count[i]]
@@ -418,7 +418,7 @@ async def delete_event(for_length:int, for_event_edates):
         openeebe.write(','.join(event_embed_names))
         openeebe.close()
 
-        openeebd = open(event_ebd_path, "r+")
+        openeebd = open(event_ebd_path, "r+", encoding="utf-8")
         del event_edates[i_count[i]]
         if length == 1:
             event_edates = []
@@ -427,7 +427,7 @@ async def delete_event(for_length:int, for_event_edates):
         openeebd.write(','.join(event_edates))
         openeebd.close()
 
-        openeeid = open(event_id_path, "r+")
+        openeeid = open(event_id_path, "r+", encoding="utf-8")
         del event_embed_id[i_count[i]]
         if length == 1:
             event_embed_id = []
@@ -460,7 +460,7 @@ async def eventdelete(ctx, name:str):
 
         if ctx.channel.id == command_channel:
             #search for name in embed names
-            openeebe = open(event_ebe_path, "r+")
+            openeebe = open(event_ebe_path, "r+", encoding="utf-8")
             event_embed_names = openeebe.read()
             event_embed_names = event_embed_names.split(',')
             if name in event_embed_names:
@@ -470,7 +470,7 @@ async def eventdelete(ctx, name:str):
                 await delete_message.delete()
                 openeebe.close()
 
-                openesbd = open(event_sbd_path, "r+")
+                openesbd = open(event_sbd_path, "r+", encoding="utf-8")
                 event_sdates = openesbd.read()
                 event_sdates = event_sdates.split(',')
                 del event_sdates[i]
@@ -479,7 +479,7 @@ async def eventdelete(ctx, name:str):
                 openesbd.write(','.join(event_sdates))
                 openesbd.close()
 
-                openeebn = open(event_bn_path, "r+")
+                openeebn = open(event_bn_path, "r+", encoding="utf-8")
                 event_name_save = openeebn.read()
                 event_name_save = event_name_save.split(',')
                 del event_name_save[i]
@@ -488,7 +488,7 @@ async def eventdelete(ctx, name:str):
                 openeebn.write(','.join(event_name_save))
                 openeebn.close()
 
-                openeebe = open(event_ebe_path, "r+")
+                openeebe = open(event_ebe_path, "r+", encoding="utf-8")
                 event_embed_names = openeebe.read()
                 event_embed_names = event_embed_names.split(',')
                 del event_embed_names[i]
@@ -497,14 +497,14 @@ async def eventdelete(ctx, name:str):
                 openeebe.write(','.join(event_embed_names))
                 openeebe.close()
 
-                openeebd = open(event_ebd_path, "r+")
+                openeebd = open(event_ebd_path, "r+", encoding="utf-8")
                 del event_edates[i]
                 openeebd.seek(0)
                 openeebd.truncate()
                 openeebd.write(','.join(event_edates))
                 openeebd.close()
 
-                openeeid = open(event_id_path, "r+")
+                openeeid = open(event_id_path, "r+", encoding="utf-8")
                 del event_embed_id[i]
                 openeeid.seek(0)
                 openeeid.truncate()
@@ -544,7 +544,7 @@ async def event_message_update(ctx):
     global event_sbd_path
     global event_ebd_path
     if os.stat(event_ebd_path).st_size != 0:
-        openeebd = open(event_ebd_path, "r+")
+        openeebd = open(event_ebd_path, "r+", encoding="utf-8")
         event_edates = openeebd.read()
         event_edates = event_edates.split(',')
         openeebd.close()
