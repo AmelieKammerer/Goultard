@@ -39,8 +39,8 @@ async def on_ready():
     
     for emote in bot.emojis:
         server_emojis.append(emote)
-
-    await role_message(roles_save)
+    if roles_save != ([],[],[],[]):
+        await role_message(roles_save)
 
 
 # Make/modify role message
